@@ -7,7 +7,7 @@ const Catalogo = () => {
             <div className="row">
                 {
                     productosJSON.map(item => (
-                        <div className="col-3" key={item.id}>
+                        <div className="col-3 mb-5" key={item.id}>
                             <Card item={item} />
                         </div>
                     ))
