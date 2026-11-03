@@ -7,7 +7,7 @@ const Card = ({item}) => {
                 <p className="card-text">{item.detalles.substring(0, 70) + "..."}</p>
                 <p className="card-text fw-bold">${item.precio}</p>
                 <div className="text-center">
-                    <a href="#" className="btn-solid theme-primary fw-bold">Agrega al Carrito</a>
+                    <a href="#" className="btn-solid theme-inverse fw-bold">Agregar</a>
                 </div>
             </div>
         </section>
