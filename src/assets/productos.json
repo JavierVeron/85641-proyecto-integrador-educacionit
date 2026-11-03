@@ -1,0 +1,68 @@
+[
+    {
+        "id": "1",
+        "nombre": "AP-S200BK",
+        "precio": "2450000.00",
+        "stock": "2",
+        "marca": "Casio",
+        "categoria": "teclados",
+        "detalles": "Piano | Celviano | 88 Teclas Acc.Tri Sensor II | 19 Sonidos | 128 Polifonia | Morphing AiR multidim | 3 Pedales | USB | APP Casio Music Space | Negro",
+        "foto": "https://todomusica.com.ar/30384-large_default/ap-s200bk.jpg",
+        "envio": false
+    },
+    {
+        "id": "2",
+        "nombre": "AP-300BN",
+        "precio": "3050000.00",
+        "stock": "1",
+        "marca": "Casio",
+        "categoria": "teclados",
+        "detalles": "Piano | Celviano | 88 Teclas Acc.Tri Sensor II | 19 Sonidos | 192 Polifonia | Acoustic String Resonance Simulator | Morphing AiR multidim | 3 Pedales | USB | APP Casio Music Space | Banqueta | Palisandro",
+        "foto": "https://todomusica.com.ar/30380-large_default/ap-300bn.jpg",
+        "envio": true
+    },
+    {
+        "id": "3",
+        "nombre": "BAT8E BASS",
+        "precio": "955000.00",
+        "stock": "1",
+        "marca": "Bromo",
+        "categoria": "bajos",
+        "detalles": "Bajo Electroacústico | Tahoma | Mini Jumbo | Tapa Abeto Sólido | Fondo/Aros Caoba | Diapasón Ébano Amara | Satin | c: Natural",
+        "foto": "https://todomusica.com.ar/31263-large_default/bat8e-bass.jpg",
+        "envio": true
+    },
+    {
+        "id": "4",
+        "nombre": "SJB75C/NA",
+        "precio": "1200000.00",
+        "stock": "1",
+        "marca": "SX",
+        "categoria": "bajos",
+        "detalles": "Bajo electrico | Ash Series | JB | Diapason Maple | Cobertores metalicos en Mics| Pickguard negro | Natural Glossy",
+        "foto": "https://todomusica.com.ar/26561-large_default/sjb75c-na.jpg",
+        "envio": false
+    },
+    {
+        "id": "5",
+        "nombre": "AE40E NA",
+        "precio": "2300000.00",
+        "stock": "1",
+        "marca": "PRS",
+        "categoria": "guitarras",
+        "detalles": "Guitarra Electroacustica | SE AE40E | Tapa Abeto Stika Macisa | Mic Fishman | Funda | Natural",
+        "foto": "https://todomusica.com.ar/26561-large_default/sjb75c-na.jpg",
+        "envio": false
+    },
+    {
+        "id": "6",
+        "nombre": "SD104BK",
+        "precio": "230000.00",
+        "stock": "2",
+        "marca": "SX",
+        "categoria": "guitarras",
+        "detalles": "Guitarra Acustica | Cuerpo Dreadnought | Diapasón Rosewood | Tapa Tilo | Fondo y Aro de Tilo | Clavijas Die-Cast | Cejilla de Nubone | Color Black",
+        "foto": "https://todomusica.com.ar/27886-large_default/sd104bk.jpg",
+        "envio": true
+    }
+]
