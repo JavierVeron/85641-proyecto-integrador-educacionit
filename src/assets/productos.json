@@ -2,7 +2,7 @@
     {
         "id": "1",
         "nombre": "AP-S200BK",
-        "precio": "2450000.00",
+        "precio": "2450000",
         "stock": "2",
         "marca": "Casio",
         "categoria": "teclados",
@@ -13,7 +13,7 @@
     {
         "id": "2",
         "nombre": "AP-300BN",
-        "precio": "3050000.00",
+        "precio": "3050000",
         "stock": "1",
         "marca": "Casio",
         "categoria": "teclados",
@@ -24,7 +24,7 @@
     {
         "id": "3",
         "nombre": "BAT8E BASS",
-        "precio": "955000.00",
+        "precio": "955000",
         "stock": "1",
         "marca": "Bromo",
         "categoria": "bajos",
@@ -35,7 +35,7 @@
     {
         "id": "4",
         "nombre": "SJB75C/NA",
-        "precio": "1200000.00",
+        "precio": "1200000",
         "stock": "1",
         "marca": "SX",
         "categoria": "bajos",
@@ -46,7 +46,7 @@
     {
         "id": "5",
         "nombre": "AE40E NA",
-        "precio": "2300000.00",
+        "precio": "2300000",
         "stock": "1",
         "marca": "PRS",
         "categoria": "guitarras",
@@ -57,7 +57,7 @@
     {
         "id": "6",
         "nombre": "SD104BK",
-        "precio": "230000.00",
+        "precio": "230000",
         "stock": "2",
         "marca": "SX",
         "categoria": "guitarras",
