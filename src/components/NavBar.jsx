@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { CartContext } from "./context/CartContext"
 
 const NavBar = () => {
+    const {cantidadProductos} = useContext(CartContext);
+
     return (
         <div className="container-fluid my-5">
             <div className="row">
@@ -22,7 +26,7 @@ const NavBar = () => {
                             <Link to={"/alta"} className="nav-link fw-bold"><i className="bi bi-file-plus"></i> Alta</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/carrito"} className="nav-link fw-bold"><i className="bi bi-cart"></i> Carrito (0)</Link>
+                            <Link to={"/carrito"} className="nav-link fw-bold"><i className="bi bi-cart"></i> Carrito ({cantidadProductos()})</Link>
                         </li>
                     </ul>
                 </div>

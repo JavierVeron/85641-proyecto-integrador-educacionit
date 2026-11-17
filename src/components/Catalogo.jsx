@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import productosJSON from "../assets/productos.json";
+import { useContext, useEffect, useState } from "react";
 import Card from "./Card";
 import { useParams } from "react-router-dom";
+import { CartContext } from "./context/CartContext";
 
 const Catalogo = () => {
-    const [items, setItems] = useState(productosJSON);
+    const {productos} = useContext(CartContext);
+    const [items, setItems] = useState(productos);
     const {id} = useParams();
 
     useEffect(() => {
-        setItems(id ? productosJSON.filter(item => item.categoria == id) : productosJSON);
+        setItems(id ? productos.filter(item => item.categoria == id) : productos);
     }, [id])
 
     if (items.length == 0) {
