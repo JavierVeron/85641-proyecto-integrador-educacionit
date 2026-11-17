@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const NavBar = () => {
     return (
         <div className="container-fluid my-5">
@@ -5,16 +7,22 @@ const NavBar = () => {
                 <div className="col">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <a className="nav-link fw-bold" href="#">Todos</a>
+                            <Link to={"/"} className="nav-link fw-bold">Todos</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link fw-bold" href="#">Teclados</a>
+                            <Link to={"/categoria/teclados"} className="nav-link fw-bold">Teclados</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link fw-bold" href="#">Bajos</a>
+                            <Link to={"/categoria/bajos"} className="nav-link fw-bold" href="#">Bajos</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link fw-bold" href="#">Guitarras</a>
+                            <Link to={"/categoria/guitarras"} className="nav-link fw-bold">Guitarras</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/alta"} className="nav-link fw-bold"><i className="bi bi-file-plus"></i> Alta</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/carrito"} className="nav-link fw-bold"><i className="bi bi-cart"></i> Carrito (0)</Link>
                         </li>
                     </ul>
                 </div>

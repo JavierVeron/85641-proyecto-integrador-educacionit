@@ -11,6 +11,8 @@ const Alta = () => {
     const [detalles, setDetalles] = useState("Pack de Guitarra Electrica | SE1 | Micrófonos HSS | Amplificador GA1065 10W | Cable GC-10 | Afinador SZTU2 | Correa S40 | 6 Púas | Funda EB400/M | C: Sunburst");
     const [foto, setFoto] = useState("https://todomusica.com.ar/31565-thickbox_default/se1hss-sk-3ts.jpg");
     const [envio, setEnvio] = useState(true);
+    const [modoEdicion, setModoEdicion] = useState(false);
+    const [idProducto, setIdProducto] = useState(0);
 
     const generarId = () => {
         return productos.length + 1;
@@ -21,6 +23,51 @@ const Alta = () => {
         const nuevoProducto = {id, nombre, precio, stock, marca, categoria, detalles, foto, envio};
         setProductos([...productos, nuevoProducto]);
         console.log("El Producto #" + id + " se agregó correctamente!");
+    }
+
+    const cargarProducto = (id) => {
+        const producto = productos.find(item => item.id == id);
+        setNombre(producto.nombre);
+        setPrecio(producto.precio);
+        setStock(producto.stock);
+        setMarca(producto.marca);
+        setCategoria(producto.categoria);
+        setDetalles(producto.detalles);
+        setFoto(producto.foto);
+        setEnvio(producto.envio);
+        setModoEdicion(true);
+        setIdProducto(id);
+    }
+
+    const editarProducto = () => {
+        const producto = productos.find(item => item.id == idProducto);
+        producto.nombre = nombre;
+        producto.precio = precio;
+        producto.stock = stock;
+        producto.marca = marca;
+        producto.categoria = categoria;
+        producto.detalles = detalles;
+        producto.foto = foto;
+        producto.envio = envio;
+        setModoEdicion(false);
+        setIdProducto(0);
+        console.log("Se actualizó el Producto #" + idProducto);
+    }
+
+    const cancelarEdicion = () => {
+        setModoEdicion(false);
+        setIdProducto(0);
+        console.log("Se canceló la Edicición del Producto #" + idProducto);
+    }
+
+    const eliminarProducto = (id) => {
+        const pregunta = confirm("Desea eliminar el Producto #" + id + "?");
+
+        if (pregunta) {
+            const productosActualizados = productos.filter(item => item.id != id);
+            setProductos(productosActualizados);
+            console.log("Se eliminó el Producto #" + id);
+        }
     }
 
     return (
@@ -64,11 +111,12 @@ const Alta = () => {
                             <input type="checkbox" className="check" value={envio} checked={envio ? "checked" : ""} onChange={(e) => {setEnvio(envio ? false : true)}} />
                             <label>Envío Gratis</label>
                         </div>
-                        <button type="button" className="btn-solid theme-inverse fw-bold" onClick={agregarProducto}>Agregar</button>
+                        <button type="button" className="btn-solid theme-inverse fw-bold" onClick={modoEdicion ? editarProducto : agregarProducto}>{modoEdicion ? "Actualizar" : "Agregar"}</button>
+                        {modoEdicion && <button type="button" className="btn-outline theme-inverse fw-bold mx-1" onClick={cancelarEdicion}>Cancelar</button>}
                     </form>
                 </div>
             </div>
-            <div className="row my-5">
+            <div className="row my-10">
                 <div className="col">
                     {productos.length > 0 ? <table className="table">
                         <thead>
@@ -85,7 +133,7 @@ const Alta = () => {
                         <tbody>
                             {
                                 productos.map(item => (
-                                    <tr key={item.id}>
+                                    <tr key={item.id} className={`${idProducto == item.id && "table-active"}`}>
                                         <td><img src={item.foto} alt={item.nombre} width={80} /></td>
                                         <td className="align-middle">{item.nombre}</td>
                                         <td className="align-middle">${item.precio}</td>
@@ -93,7 +141,8 @@ const Alta = () => {
                                         <td className="align-middle">{item.categoria}</td>
                                         <td className="align-middle">{item.envio && <b>Gratis</b>}</td>
                                         <td className="align-middle text-end">
-                                            <button className="btn-solid theme-inverse fw-bold">Eliminar</button>
+                                            <button className="btn-outline btn-sm theme-inverse fw-bold mx-1" disabled={modoEdicion && item.id != idProducto ? true : false} onClick={() => {cargarProducto(item.id)}}>Editar</button>
+                                            <button className="btn-outline btn-sm theme-inverse fw-bold" disabled={modoEdicion && item.id != idProducto ? true : false} onClick={() => {eliminarProducto(item.id)}}>Eliminar</button>
                                         </td>
                                 </tr>
                                 ))
