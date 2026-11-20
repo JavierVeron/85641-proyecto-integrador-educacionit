@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SinProductos from "./SinProductos";
 
 const CarritoDeCompras = () => {
-    const {carrito, eliminarProductoCarrito, vaciarCarrito, cantidadProductosCarrito, sumaProductosCarrito} = useContext(CartContext);
+    const {carrito, eliminarProductoCarrito, vaciarCarrito, cantidadProductosCarrito, sumaProductosCarrito, incrementarItemCarrito, decrementarItemCarrito} = useContext(CartContext);
 
     if (cantidadProductosCarrito() == 0) {
         return (
@@ -37,7 +37,7 @@ const CarritoDeCompras = () => {
                                         <td className="align-middle">{item.nombre}</td>
                                         <td className="align-middle">{item.marca}</td>
                                         <td className="align-middle">${item.precio}</td>
-                                        <td className="align-middle">{item.cantidad}</td>
+                                        <td className="align-middle"><i className="bi bi-arrow-down-circle-fill" onClick={() => {decrementarItemCarrito(item.id)}}></i> {item.cantidad} <i className="bi bi-arrow-up-circle-fill" onClick={() => {incrementarItemCarrito(item.id)}}></i></td>
                                         <td className="align-middle">${item.precio * item.cantidad}</td>
                                         <td className="align-middle text-end"><button className="btn-solid btn-sm theme-inverse fw-bold" onClick={() => {eliminarProductoCarrito(item.id)}}>Eliminar</button></td>
                                 </tr>

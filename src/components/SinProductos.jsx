@@ -4,7 +4,7 @@ const SinProductos = () => {
     return (
         <div className="container my-10">
             <div className="row">
-                <div className="col-12 text-center">
+                <div className="col">
                     <div className="alert theme-warning" role="alert">
                         <vstack>
                             <h4 className="alert-heading mb-2">Atención!</h4>

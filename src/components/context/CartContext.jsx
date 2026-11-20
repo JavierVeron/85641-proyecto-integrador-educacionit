@@ -75,7 +75,7 @@ const CartContextProvider = ({children}) => {
     }
 
     const incrementarItemCarrito = (id) => {
-        let producto = carrito.find(item => item.id == id);
+        let producto = carrito.find(item => item.id == id);        
 
         if (producto) {
             if (producto.cantidad < producto.stock) {
