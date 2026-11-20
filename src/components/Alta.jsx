@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "./context/CartContext";
 import SinProductos from "./SinProductos";
 
@@ -14,6 +14,11 @@ const Alta = () => {
     const [envio, setEnvio] = useState(true);
     const [modoEdicion, setModoEdicion] = useState(false);
     const [idProducto, setIdProducto] = useState(0);
+    const [habilitado, setHabilitado] = useState(false);
+
+    useEffect(() => {
+        setHabilitado((nombre != "" && precio != "" && stock != "" && marca != "" && categoria != "" && detalles != "" && foto != "") ? true : false);
+    })
 
     const obtenerProductoAlta = (id) => {
         const producto = obtenerProducto(id);
@@ -40,7 +45,6 @@ const Alta = () => {
         editarProducto(idProducto, productoActualizado);
         setModoEdicion(false);
         setIdProducto(0);
-        console.log("Se actualizó el Producto #" + idProducto);
     }
 
     const cancelarEdicionAlta = () => {
@@ -106,10 +110,10 @@ const Alta = () => {
                             <input type="text" className="form-control" value={foto} onInput={(e) => {setFoto(e.target.value)}} />
                         </div>
                         <div className="mb-3 form-field">
-                            <input type="checkbox" className="check" value={envio} checked={envio ? "checked" : ""} onChange={(e) => {setEnvio(envio ? false : true)}} />
+                            <input type="checkbox" className="check" value={envio} checked={envio ? "checked" : ""} onChange={() => {setEnvio(envio ? false : true)}} />
                             <label>Envío Gratis</label>
                         </div>
-                        <button type="button" className="btn-solid theme-inverse fw-bold" onClick={modoEdicion ? editarProductoAlta : agregarProductoAlta}>{modoEdicion ? "Actualizar" : "Agregar"}</button>
+                        <button type="button" className="btn-solid theme-inverse fw-bold" disabled={habilitado ? false : true} onClick={modoEdicion ? editarProductoAlta : agregarProductoAlta}>{modoEdicion ? "Actualizar" : "Agregar"}</button>
                         {modoEdicion && <button type="button" className="btn-outline theme-inverse fw-bold mx-1" onClick={cancelarEdicionAlta}>Cancelar</button>}
                     </form>
                 </div>
@@ -139,8 +143,8 @@ const Alta = () => {
                                         <td className="align-middle">{item.categoria}</td>
                                         <td className="align-middle">{item.envio && <b>Gratis</b>}</td>
                                         <td className="align-middle text-end">
-                                            <button className="btn-outline btn-sm theme-inverse fw-bold mx-1" disabled={modoEdicion && item.id != idProducto ? true : false} onClick={() => {obtenerProductoAlta(item.id)}}>Editar</button>
-                                            <button className="btn-outline btn-sm theme-inverse fw-bold" disabled={modoEdicion && item.id != idProducto ? true : false} onClick={() => {eliminarProductoAlta(item.id)}}>Eliminar</button>
+                                            <button className="btn-outline btn-sm theme-inverse fw-bold mx-1" disabled={(modoEdicion && item.id) != idProducto ? true : false} onClick={() => {obtenerProductoAlta(item.id)}}>Editar</button>
+                                            <button className="btn-outline btn-sm theme-inverse fw-bold" disabled={(modoEdicion && item.id) != idProducto ? true : false} onClick={() => {eliminarProductoAlta(item.id)}}>Eliminar</button>
                                         </td>
                                 </tr>
                                 ))

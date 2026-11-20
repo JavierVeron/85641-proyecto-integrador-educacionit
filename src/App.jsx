@@ -6,6 +6,7 @@ import CarritoDeCompras from "./components/CarritoDeCompras.jsx"
 import Alta from "./components/Alta.jsx"
 import Error404 from "./components/Error404.jsx"
 import CartContextProvider from "./components/context/CartContext.jsx"
+import Checkout from "./components/Checkout.jsx"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/categoria/:id" element={<Catalogo />} />
           <Route path="/alta" element={<Alta />} />
           <Route path="/carrito" element={<CarritoDeCompras />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
         <Footer />

@@ -1,29 +1,53 @@
-import { createContext, useState } from "react";
-import productosJSON from "../../assets/productos.json";
+import { createContext, useEffect, useState } from "react";
+import MockAPI from "../MockAPI";
 
 export const CartContext = createContext();
 
 const CartContextProvider = ({children}) => {
-    const [productos, setProductos] = useState(productosJSON);
+    const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
+    const [actualizar, setActualizar] = useState(true);
+
+    useEffect(() => {
+        (async () => {
+            if (actualizar) {
+                const response = await MockAPI.get("/productos");
+                setProductos(response.data);
+                setActualizar(false);
+            }
+        })();
+    }, [actualizar])
 
     // Funciones de Productos
-    const obtenerProducto = (id) => {
+    /* const obtenerProducto = (id) => {
         return productos.find(item => item.id == id);
+    } */
+
+    const obtenerProducto = async (id) => {
+        const response = await MockAPI.get("/productos/" + id);
+
+        return response.data;
     }
 
-    const generarId = () => {
+    /* const generarId = () => {
         return productos.length + 1;
-    }
+    } */
 
-    const agregarProducto = (producto) => {
+    /* const agregarProducto = (producto) => {
         const id = generarId();
         producto = {id, ...producto}
         setProductos([...productos, producto]);
         console.log("El Producto #" + id + " se agregó correctamente!");
+    } */
+
+    const agregarProducto = async (producto) => {
+        const response = await MockAPI.post("/productos", producto);
+        const data = response.data;
+        setActualizar(true);
+        console.log("El Producto #" + data.id + " se agregó correctamente!");
     }
 
-    const editarProducto = (id, productoActualizado) => {
+    /* const editarProducto = (id, productoActualizado) => {
         const producto = productos.find(item => item.id == id);
         producto.nombre = productoActualizado.nombre;
         producto.precio = productoActualizado.precio;
@@ -35,12 +59,26 @@ const CartContextProvider = ({children}) => {
         producto.envio = productoActualizado.envio;
         setProductos([...productos]);
         console.log("Se actualizó el Producto #" + id);
+    } */
+
+    const editarProducto = async (id, productoActualizado) => {
+        const response = await MockAPI.put("/productos/" + id, productoActualizado);
+        const data = response.data;
+        setActualizar(true);
+        console.log("Se actualizó el Producto #" + data.id);
     }
 
-    const eliminarProducto = (id) => {
+    /* const eliminarProducto = (id) => {
         const productosActualizados = productos.filter(item => item.id != id);
         setProductos(productosActualizados);
         console.log("Se eliminó el Producto #" + id);
+    } */
+
+    const eliminarProducto = async (id) => {
+        const response = await MockAPI.delete("/productos/" + id);        
+        const data = response.data;
+        setActualizar(true);
+        console.log("Se eliminó el Producto #" + data.id);
     }
 
     const cantidadProductos = () => {
@@ -48,14 +86,13 @@ const CartContextProvider = ({children}) => {
     }
 
     // Funciones de Carrito
-    const agregarProductoCarrito = (id) => {
+    const agregarProductoCarrito = async (id) => {
         let producto = carrito.find(item => item.id == id);
 
         if (producto) {
-            producto.cantidad++;
-            setCarrito([...carrito]);
+            incrementarItemCarrito(id);
         } else {
-            producto = obtenerProducto(id);
+            producto = await obtenerProducto(id);            
             producto.cantidad = 1;
             setCarrito([...carrito, producto]);
         }        
@@ -104,7 +141,16 @@ const CartContextProvider = ({children}) => {
         return carrito.reduce((acum, item) => acum += item.cantidad * item.precio, 0);
     }
 
-    return <CartContext.Provider value={{productos, carrito, obtenerProducto, agregarProducto, editarProducto, eliminarProducto, cantidadProductos, agregarProductoCarrito, eliminarProductoCarrito, vaciarCarrito, incrementarItemCarrito, decrementarItemCarrito, cantidadProductosCarrito, sumaProductosCarrito}}>
+    const guardarPedidoCarrito = async (pedido) => {
+        const response = await MockAPI.post("/pedidos", pedido);
+        const data = response.data;
+        vaciarCarrito();
+        console.log("El pedido #" + data.id + " se realizó correctamente!");
+
+        return data.id;
+    }
+
+    return <CartContext.Provider value={{productos, carrito, obtenerProducto, agregarProducto, editarProducto, eliminarProducto, cantidadProductos, agregarProductoCarrito, eliminarProductoCarrito, vaciarCarrito, incrementarItemCarrito, decrementarItemCarrito, cantidadProductosCarrito, sumaProductosCarrito, guardarPedidoCarrito}}>
         {children}
     </CartContext.Provider>
 }

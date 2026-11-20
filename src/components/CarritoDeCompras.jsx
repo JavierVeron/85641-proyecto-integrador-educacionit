@@ -1,11 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import productosJSON from "../assets/productos.json";
+import { useContext, useEffect } from "react";
 import { CartContext } from "./context/CartContext";
-import { Link } from "react-router-dom";
 import SinProductos from "./SinProductos";
+import { Link } from "react-router-dom";
 
 const CarritoDeCompras = () => {
     const {carrito, eliminarProductoCarrito, vaciarCarrito, cantidadProductosCarrito, sumaProductosCarrito, incrementarItemCarrito, decrementarItemCarrito} = useContext(CartContext);
+
+    useEffect(() => {
+
+    })
 
     if (cantidadProductosCarrito() == 0) {
         return (
@@ -31,8 +34,8 @@ const CarritoDeCompras = () => {
                         </thead>
                         <tbody>
                             {
-                                carrito.map(item => (
-                                    <tr key={item.id}>
+                                carrito.map((item, index) => (
+                                    <tr key={index}>
                                         <td><img src={item.foto} alt={item.nombre} width={80} /></td>
                                         <td className="align-middle">{item.nombre}</td>
                                         <td className="align-middle">{item.marca}</td>
@@ -46,7 +49,7 @@ const CarritoDeCompras = () => {
                             <tr>
                                 <td colSpan={5}><b>Total a Pagar</b></td>
                                 <td><b>${sumaProductosCarrito()}</b></td>
-                                <td>&nbsp;</td>
+                                <td className="text-end"><Link to={"/checkout"} className="btn-solid btn-sm theme-inverse fw-bold">Checkout</Link></td>
                             </tr>
                         </tbody>
                     </table>
