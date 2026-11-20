@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { CartContext } from "./context/CartContext";
+import SinProductos from "./SinProductos";
 
 const Alta = () => {
-    const {productos, obtenerProducto, agregarProducto, editarProducto, eliminarProducto} = useContext(CartContext);
+    const {productos, obtenerProducto, agregarProducto, editarProducto, eliminarProducto, cantidadProductos} = useContext(CartContext);
     const [nombre, setNombre] = useState("SE1HSS-SK-3TS");
     const [precio, setPrecio] = useState(695000);
     const [stock, setStock] = useState(1);
@@ -113,9 +114,9 @@ const Alta = () => {
                     </form>
                 </div>
             </div>
-            <div className="row my-10">
+            {cantidadProductos() > 0 ? <div className="row my-10">
                 <div className="col">
-                    {productos.length > 0 ? <table className="table">
+                    <table className="table">
                         <thead>
                             <tr>
                             <th scope="col">#</th>
@@ -145,12 +146,9 @@ const Alta = () => {
                                 ))
                             }
                         </tbody>
-                    </table> : <vstack>
-                                <h4 className="alert-heading fw-bold mb-2">Atención!</h4>
-                                <p>No se encontraron Productos!</p>
-                            </vstack>}
+                    </table>
                 </div>
-            </div>
+            </div> : <SinProductos />}
         </div>
     )
 }

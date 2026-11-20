@@ -43,6 +43,10 @@ const CartContextProvider = ({children}) => {
         console.log("Se eliminó el Producto #" + id);
     }
 
+    const cantidadProductos = () => {
+        return productos.length;
+    }
+
     // Funciones de Carrito
     const agregarProductoCarrito = (id) => {
         let producto = carrito.find(item => item.id == id);
@@ -92,15 +96,15 @@ const CartContextProvider = ({children}) => {
         }
     }
 
-    const cantidadProductos = () => {
+    const cantidadProductosCarrito = () => {
         return carrito.reduce((acum, item) => acum += item.cantidad, 0);
     }
 
-    const sumaProductos = () => {
+    const sumaProductosCarrito = () => {
         return carrito.reduce((acum, item) => acum += item.cantidad * item.precio, 0);
     }
 
-    return <CartContext.Provider value={{productos, carrito, obtenerProducto, agregarProducto, editarProducto, eliminarProducto, agregarProductoCarrito, eliminarProductoCarrito, vaciarCarrito, incrementarItemCarrito, decrementarItemCarrito, cantidadProductos, sumaProductos}}>
+    return <CartContext.Provider value={{productos, carrito, obtenerProducto, agregarProducto, editarProducto, eliminarProducto, cantidadProductos, agregarProductoCarrito, eliminarProductoCarrito, vaciarCarrito, incrementarItemCarrito, decrementarItemCarrito, cantidadProductosCarrito, sumaProductosCarrito}}>
         {children}
     </CartContext.Provider>
 }

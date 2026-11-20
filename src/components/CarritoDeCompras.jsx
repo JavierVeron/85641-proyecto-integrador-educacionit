@@ -1,31 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import productosJSON from "../assets/productos.json";
+import { CartContext } from "./context/CartContext";
+import { Link } from "react-router-dom";
+import SinProductos from "./SinProductos";
 
 const CarritoDeCompras = () => {
-    const [carrito, setCarrito] = useState([]);
-    const producto1 = productosJSON.find(item => item.id == 2);
-    const producto2 = productosJSON.find(item => item.id == 4);
-    producto1.cantidad = 1;
-    producto2.cantidad = 2;
-    
-    useEffect(() => {
-        setCarrito([producto1, producto2]);
-    }, [])
+    const {carrito, eliminarProductoCarrito, vaciarCarrito, cantidadProductosCarrito, sumaProductosCarrito} = useContext(CartContext);
 
-    if (carrito.length == 0) {
+    if (cantidadProductosCarrito() == 0) {
         return (
-            <div className="container my-10">
-                <div className="row">
-                    <div className="col">
-                        <div className="alert theme-warning" role="alert">
-                            <vstack>
-                                <h4 className="alert-heading fw-bold mb-2">Atención!</h4>
-                                <p>No se encontraron Productos en el Carrito!</p>
-                            </vstack>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <SinProductos />
         )
     }
 
@@ -36,13 +20,13 @@ const CarritoDeCompras = () => {
                     <table className="table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Precio Unitario</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">&nbsp;</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Precio Unitario</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col" className="text-end"><button className="btn-solid btn-sm theme-inverse fw-bold" onClick={vaciarCarrito}>Vaciar</button></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,10 +39,15 @@ const CarritoDeCompras = () => {
                                         <td className="align-middle">${item.precio}</td>
                                         <td className="align-middle">{item.cantidad}</td>
                                         <td className="align-middle">${item.precio * item.cantidad}</td>
-                                        <td className="align-middle text-end"><button className="btn-solid theme-inverse fw-bold">Eliminar</button></td>
+                                        <td className="align-middle text-end"><button className="btn-solid btn-sm theme-inverse fw-bold" onClick={() => {eliminarProductoCarrito(item.id)}}>Eliminar</button></td>
                                 </tr>
                                 ))
                             }
+                            <tr>
+                                <td colSpan={5}><b>Total a Pagar</b></td>
+                                <td><b>${sumaProductosCarrito()}</b></td>
+                                <td>&nbsp;</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

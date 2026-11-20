@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import Card from "./Card";
 import { useParams } from "react-router-dom";
 import { CartContext } from "./context/CartContext";
+import SinProductos from "./SinProductos";
 
 const Catalogo = () => {
-    const {productos} = useContext(CartContext);
+    const {productos, cantidadProductos} = useContext(CartContext);
     const [items, setItems] = useState(productos);
     const {id} = useParams();
 
@@ -12,21 +13,10 @@ const Catalogo = () => {
         setItems(id ? productos.filter(item => item.categoria == id) : productos);
     }, [id])
 
-    if (items.length == 0) {
-        return (
-            <div className="container my-10">
-                <div className="row">
-                    <div className="col">
-                        <div className="alert theme-warning" role="alert">
-                            <vstack>
-                                <h4 className="alert-heading fw-bold mb-2">Atención!</h4>
-                                <p>No se encontraron Productos!</p>
-                            </vstack>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
+    if (cantidadProductos() == 0) {
+       return (
+            <SinProductos />
+       )
     }
 
     return (
